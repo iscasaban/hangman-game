@@ -1,10 +1,10 @@
-import "../styles/App.scss";
-import { useState } from "react";
+import '../styles/App.scss';
+import { useState } from 'react';
+import Header from './Header';
 
 function App() {
   //Solución
-  const [word, setWord] = useState("esternocleidomastoideo");
-
+  const [word, setWord] = useState('esternocleidomastoideo');
 
   //Letras del usuario
 
@@ -14,51 +14,58 @@ function App() {
   let numberOfErrors = 0;
 
   //Valor escrito por el usuario
-  const [lastLetter, setLastLetter] = useState("");
+  const [lastLetter, setLastLetter] = useState('');
 
   const renderSolutionLetters = (word) => {
-    const arrayWords = word.split("");
+    const arrayWords = word.split('');
     const renderArray = arrayWords.map((letter, index) => {
-      if(userLetters.includes(letter)){
-      return  <li key={index} className="letter">{letter}</li>
-      }else{
-      return  <li key={index} className="letter"></li>
+      if (userLetters.includes(letter)) {
+        return (
+          <li key={index} className="letter">
+            {letter}
+          </li>
+        );
+      } else {
+        return <li key={index} className="letter"></li>;
       }
     });
     return renderArray;
   };
   const renderErrorLetters = () => {
-   const errorLetters =  userLetters.filter((letter, index)=> !word.includes(letter))
-   .map( (letter, index) =>{
-     return <li key={index} className="letter">{letter}</li>
-   })
+    const errorLetters = userLetters
+      .filter((letter, index) => !word.includes(letter))
+      .map((letter, index) => {
+        return (
+          <li key={index} className="letter">
+            {letter}
+          </li>
+        );
+      });
     numberOfErrors = errorLetters.length;
-    return errorLetters
-  }
+    return errorLetters;
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
   };
 
   const handleInput = (event) => {
     //Letra del usuario
     const userLetter = event.currentTarget.value;
-    setLastLetter(userLetter)
-    if(userLetter.match('^[A-Za-zÑñ]?$') && userLetter && !userLetters.includes(userLetter)){
+    setLastLetter(userLetter);
+    if (
+      userLetter.match('^[A-Za-zÑñ]?$') &&
+      userLetter &&
+      !userLetters.includes(userLetter)
+    ) {
       setUserLetters([...userLetters, userLetter]);
     }
   };
 
-
-
-
   return (
     <div>
       <div className="page">
-        <header>
-          <h1 className="header__title">Juego del ahorcado</h1>
-        </header>
+        <Header /> 
         <main className="main">
           <section>
             <div className="solution">
@@ -67,9 +74,7 @@ function App() {
             </div>
             <div className="error">
               <h2 className="title">Letras falladas:</h2>
-              <ul className="letters">
-                {renderErrorLetters()}
-              </ul>
+              <ul className="letters">{renderErrorLetters()}</ul>
             </div>
             <form onSubmit={handleSubmit} className="form">
               <label className="title" htmlFor="last-letter">
