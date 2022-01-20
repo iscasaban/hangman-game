@@ -34,7 +34,7 @@ function App() {
   //Contamos el número de errores
 
   const counterNumbOfErrors = () => {
-    const errorLetters = userLetters.filter((letter, index) => !word.includes(letter))
+    const errorLetters = userLetters.filter((letter) => !word.includes(letter))
     return errorLetters.length;
   };
   

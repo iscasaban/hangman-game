@@ -3,7 +3,7 @@ import '../styles/components/Letters.scss';
 const ErrorLetters = (props) => {
   const renderErrorLetters = () => {
     const errorLetters = props.userLetters
-      .filter((letter, index) => !props.word.includes(letter))
+      .filter((letter) => !props.word.includes(letter))
       .map((letter, index) => {
         return (
           <li key={index} className="letter">
