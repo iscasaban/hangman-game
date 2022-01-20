@@ -14,8 +14,6 @@ function App() {
 
   const [userLetters, setUserLetters] = useState([]);
 
-  //Número de errores
-  const [numberOfErrors, setNumberOfErrors] = useState(0);
 
   //Valor escrito por el usuario
   const [lastLetter, setLastLetter] = useState('');
@@ -33,8 +31,11 @@ function App() {
     }
   };
 
-  const counterNumbOfErrors = (errorLetters) => {
-    setNumberOfErrors(errorLetters.length);
+  //Contamos el número de errores
+
+  const counterNumbOfErrors = () => {
+    const errorLetters = userLetters.filter((letter, index) => !word.includes(letter))
+    return errorLetters.length;
   };
   
 
@@ -45,10 +46,10 @@ function App() {
         <main className="main">
           <section>
             <SolutionLetters word={word} userLetters={userLetters} />
-            <ErrorLetters word={word} userLetters={userLetters} counterNumbOfErrors={counterNumbOfErrors} />
+            <ErrorLetters word={word} userLetters={userLetters} />
            <Form handleInput={handleInput} lastLetter={lastLetter} />
           </section>
-          <Dummy numberOfErrors={numberOfErrors} />
+          <Dummy numberOfErrors={counterNumbOfErrors()} />
         </main>
       </div>
     </div>
