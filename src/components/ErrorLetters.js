@@ -11,7 +11,8 @@ const ErrorLetters = (props) => {
           </li>
         );
       });
-    // numberOfErrors = errorLetters.length;
+      
+      props.counterNumbOfErrors(errorLetters);
     return errorLetters;
   };
   return (

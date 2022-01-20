@@ -4,6 +4,7 @@ import Header from './Header';
 import Dummy from './Dummy';
 import SolutionLetters from './SolutionLetters';
 import ErrorLetters from './ErrorLetters';
+import Form from './Form';
 
 function App() {
   //Solución
@@ -14,19 +15,14 @@ function App() {
   const [userLetters, setUserLetters] = useState([]);
 
   //Número de errores
-  let numberOfErrors = 0;
+  const [numberOfErrors, setNumberOfErrors] = useState(0);
 
   //Valor escrito por el usuario
   const [lastLetter, setLastLetter] = useState('');
 
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  const handleInput = (event) => {
+  const handleInput = (userLetter) => {
     //Letra del usuario
-    const userLetter = event.currentTarget.value;
+    //const userLetter = event.currentTarget.value;
     setLastLetter(userLetter);
     if (
       userLetter.match('^[A-Za-zÑñ]?$') &&
@@ -37,6 +33,11 @@ function App() {
     }
   };
 
+  const counterNumbOfErrors = (errorLetters) => {
+    setNumberOfErrors(errorLetters.length);
+  };
+  
+
   return (
     <div>
       <div className="page">
@@ -44,23 +45,8 @@ function App() {
         <main className="main">
           <section>
             <SolutionLetters word={word} userLetters={userLetters} />
-            <ErrorLetters word={word} userLetters={userLetters} />
-           
-            <form onSubmit={handleSubmit} className="form">
-              <label className="title" htmlFor="last-letter">
-                Escribe una letra:
-              </label>
-              <input
-                onChange={handleInput}
-                autoComplete="off"
-                className="form__input"
-                maxLength="1"
-                type="text"
-                value={lastLetter}
-                name="last-letter"
-                id="last-letter"
-              />
-            </form>
+            <ErrorLetters word={word} userLetters={userLetters} counterNumbOfErrors={counterNumbOfErrors} />
+           <Form handleInput={handleInput} lastLetter={lastLetter} />
           </section>
           <Dummy numberOfErrors={numberOfErrors} />
         </main>
