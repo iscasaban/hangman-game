@@ -5,6 +5,10 @@ import Dummy from './Dummy';
 import SolutionLetters from './SolutionLetters';
 import ErrorLetters from './ErrorLetters';
 import Form from './Form';
+import Footer from './Footer';
+import { Route, Switch } from 'react-router-dom';
+import Instructions from './Instructions';
+import Options from './Options';
 
 function App() {
   //Solución
@@ -13,7 +17,6 @@ function App() {
   //Letras del usuario
 
   const [userLetters, setUserLetters] = useState([]);
-
 
   //Valor escrito por el usuario
   const [lastLetter, setLastLetter] = useState('');
@@ -34,23 +37,34 @@ function App() {
   //Contamos el número de errores
 
   const counterNumbOfErrors = () => {
-    const errorLetters = userLetters.filter((letter) => !word.includes(letter))
+    const errorLetters = userLetters.filter((letter) => !word.includes(letter));
     return errorLetters.length;
   };
-  
 
   return (
     <div>
       <div className="page">
         <Header />
         <main className="main">
-          <section>
-            <SolutionLetters word={word} userLetters={userLetters} />
-            <ErrorLetters word={word} userLetters={userLetters} />
-           <Form handleInput={handleInput} lastLetter={lastLetter} />
-          </section>
+          <Switch>
+            <Route path="/">
+              <section>
+                <SolutionLetters word={word} userLetters={userLetters} />
+                <ErrorLetters word={word} userLetters={userLetters} />
+                <Form handleInput={handleInput} lastLetter={lastLetter} />
+              </section>
+            </Route>
+
+            <Route path="/instructions">
+              <Instructions />
+            </Route>
+            <Route path="/options">
+              <Options />
+            </Route>
+          </Switch>
           <Dummy numberOfErrors={counterNumbOfErrors()} />
         </main>
+        <Footer />
       </div>
     </div>
   );
