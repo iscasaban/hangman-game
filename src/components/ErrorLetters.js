@@ -1,9 +1,10 @@
-import '../styles/components/Letters.scss';
+import "../styles/components/Letters.scss";
+import PropTypes from "prop-types";
 
-const ErrorLetters = (props) => {
+const ErrorLetters = ({ userLetters, word }) => {
   const renderErrorLetters = () => {
-    const errorLetters = props.userLetters
-      .filter((letter) => !props.word.includes(letter))
+    const errorLetters = userLetters
+      .filter((letter) => !word.includes(letter))
       .map((letter, index) => {
         return (
           <li key={index} className="letter">
@@ -21,4 +22,12 @@ const ErrorLetters = (props) => {
   );
 };
 
+ErrorLetters.defaultProps = {
+  userLetters: [],
+  word: "patata",
+};
+ErrorLetters.propTypes = {
+  userLetters: PropTypes.array,
+  word: PropTypes.string,
+};
 export default ErrorLetters;

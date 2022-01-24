@@ -1,5 +1,5 @@
-import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
-import '../styles/components/Footer.scss';
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import "../styles/components/Footer.scss";
 
 function Footer() {
   return (
@@ -7,17 +7,32 @@ function Footer() {
       <nav>
         <ul>
           <li className="footer__menu-item">
-            <NavLink className="footer__menu-link" to="/">
+            <NavLink
+              exact
+              className="footer__menu-link"
+              activeClassName="active"
+              to="/"
+            >
               A jugar
             </NavLink>
           </li>
           <li className="footer__menu-item">
-            <NavLink className="footer__menu-link active" to="/instructions">
+            <NavLink
+              exact
+              className="footer__menu-link"
+              activeClassName="active"
+              to="/instructions"
+            >
               ¿Cómo se juega?
             </NavLink>
           </li>
           <li className="footer__menu-item">
-            <NavLink className="footer__menu-link" to="/options">
+            <NavLink
+              exact
+              className="footer__menu-link"
+              to="/options"
+              activeClassName="active"
+            >
               Más opciones
             </NavLink>
           </li>

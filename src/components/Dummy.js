@@ -1,8 +1,9 @@
-import '../styles/components/Dummy.scss';
+import "../styles/components/Dummy.scss";
+import PropTypes from "prop-types";
 
-const Dummy = (props) => {
+const Dummy = ({ numberOfErrors }) => {
   return (
-    <section className={`dummy error-${props.numberOfErrors}`}>
+    <section className={`dummy error-${numberOfErrors}`}>
       <span className="error-13 eye"></span>
       <span className="error-12 eye"></span>
       <span className="error-11 line"></span>
@@ -18,6 +19,13 @@ const Dummy = (props) => {
       <span className="error-1 line"></span>
     </section>
   );
+};
+
+Dummy.defaultProps = {
+  numberOfErrors: 0,
+};
+Dummy.propTypes = {
+  numberOfErrors: PropTypes.number,
 };
 
 export default Dummy;

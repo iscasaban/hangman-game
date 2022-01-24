@@ -1,32 +1,36 @@
-import '../styles/App.scss';
-import { useState } from 'react';
-import Header from './Header';
-import Dummy from './Dummy';
-import SolutionLetters from './SolutionLetters';
-import ErrorLetters from './ErrorLetters';
-import Form from './Form';
-import Footer from './Footer';
-import { Route, Switch } from 'react-router-dom';
-import Instructions from './Instructions';
-import Options from './Options';
+import "../styles/App.scss";
+import { useState } from "react";
+import Header from "./Header";
+import Dummy from "./Dummy";
+import SolutionLetters from "./SolutionLetters";
+import ErrorLetters from "./ErrorLetters";
+import Form from "./Form";
+import Footer from "./Footer";
+import { Route, Switch } from "react-router-dom";
+import Instructions from "./Instructions";
+import Options from "./Options";
+import Loading from "./Loading";
 
 function App() {
   //Solución
-  const [word, setWord] = useState('esternocleidomastoideo');
+  const [word, setWord] = useState("patata");
 
   //Letras del usuario
 
   const [userLetters, setUserLetters] = useState([]);
 
   //Valor escrito por el usuario
-  const [lastLetter, setLastLetter] = useState('');
+  const [lastLetter, setLastLetter] = useState("");
+
+  //Loading
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleInput = (userLetter) => {
     //Letra del usuario
     //const userLetter = event.currentTarget.value;
     setLastLetter(userLetter);
     if (
-      userLetter.match('^[A-Za-zÑñ]?$') &&
+      userLetter.match("^[A-Za-zÑñ]?$") &&
       userLetter &&
       !userLetters.includes(userLetter)
     ) {
@@ -46,8 +50,9 @@ function App() {
       <div className="page">
         <Header />
         <main className="main">
+          <Loading isLoading={isLoading} />
           <Switch>
-            <Route path="/">
+            <Route exact path="/">
               <section>
                 <SolutionLetters word={word} userLetters={userLetters} />
                 <ErrorLetters word={word} userLetters={userLetters} />
@@ -55,10 +60,10 @@ function App() {
               </section>
             </Route>
 
-            <Route path="/instructions">
+            <Route exact path="/instructions">
               <Instructions />
             </Route>
-            <Route path="/options">
+            <Route exact path="/options">
               <Options />
             </Route>
           </Switch>
