@@ -1,26 +1,33 @@
-import "../styles/App.scss";
-import { useState } from "react";
-import Header from "./Header";
-import Dummy from "./Dummy";
-import SolutionLetters from "./SolutionLetters";
-import ErrorLetters from "./ErrorLetters";
-import Form from "./Form";
-import Footer from "./Footer";
-import { Route, Switch } from "react-router-dom";
-import Instructions from "./Instructions";
-import Options from "./Options";
-import Loading from "./Loading";
+import '../styles/App.scss';
+import { useState, useEffect } from 'react';
+import Header from './Header';
+import Dummy from './Dummy';
+import SolutionLetters from './SolutionLetters';
+import ErrorLetters from './ErrorLetters';
+import Form from './Form';
+import Footer from './Footer';
+import { Route, Switch } from 'react-router-dom';
+import Instructions from './Instructions';
+import Options from './Options';
+import Loading from './Loading';
+import getWord from '../services/getWord';
 
 function App() {
   //Solución
-  const [word, setWord] = useState("patata");
+  const [word, setWord] = useState('patata');
+  useEffect(() => {
+    getWord().then((wordFromApi) => {
+      setWord(wordFromApi);
+      setIsLoading(false);
+    });
+  }, []);
 
   //Letras del usuario
 
   const [userLetters, setUserLetters] = useState([]);
 
   //Valor escrito por el usuario
-  const [lastLetter, setLastLetter] = useState("");
+  const [lastLetter, setLastLetter] = useState('');
 
   //Loading
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +37,7 @@ function App() {
     //const userLetter = event.currentTarget.value;
     setLastLetter(userLetter);
     if (
-      userLetter.match("^[A-Za-zÑñ]?$") &&
+      userLetter.match('^[A-Za-zÑñ]?$') &&
       userLetter &&
       !userLetters.includes(userLetter)
     ) {
